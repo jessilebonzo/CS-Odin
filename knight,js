@@ -1,0 +1,52 @@
+const edges = [
+    [2, 1], [1, 2], [-1, 2], [-2, 1],
+    [-2, -1], [-1, -2], [1, -2], [2, -1]
+];
+
+const isWithinBounds = (x, y) => x >= 0 && x < 8 && y >= 0 && y < 8;
+
+const shortestPath = (start, end) => {
+    const visited = new Set();
+    const queue = [[start, [start]]]; // Queue of [position, path]
+
+    while (queue.length > 0) {
+        const [[x, y], path] = queue.shift();
+
+        if (x === end[0] && y === end[1]) {
+            return `You made it in ${path.length - 1} moves! Here's your path:\n${path.map(pos => `[${pos}]`).join('\n')}`;
+        }
+
+        for (const [dx, dy] of edges) {
+            const nextX = x + dx;
+            const nextY = y + dy;
+            const nextPos = [nextX, nextY];
+
+            if (isWithinBounds(nextX, nextY) && !visited.has(nextPos.toString())) {
+                visited.add(nextPos.toString());
+                queue.push([nextPos, path.concat([nextPos])]);
+            }
+        }
+    }
+
+    return -1; // No path found
+};
+
+console.log(shortestPath([3, 3], [4, 3]));
+
+//1. edges: This array represents the possible moves you can make on a grid. Each element is a pair [dx, dy] indicating the change in x and y coordinates for a move.
+
+//2. isWithinBounds(x, y): This function checks if a given position (x, y) is within the bounds of an 8x8 grid.
+
+// 3. shortestPath(start, end): This function finds the shortest path from a start position to an end position on the grid.
+
+// visited: A Set to keep track of visited positions to avoid cycles.
+// queue: A queue to store positions and their corresponding paths. It starts with the start position and its initial path.
+// while (queue.length > 0): The main loop iterates until the queue is empty or the end position is found.
+// [[x, y], path] = queue.shift(): Removes the first element from the queue, which contains the current position [x, y] and its path path.
+// if (x === end[0] && y === end[1]): If the current position is the end position, the path is found and returned.
+// for (const [dx, dy] of edges): Iterates through each possible move in edges.
+// nextX = x + dx; nextY = y + dy; nextPos = [nextX, nextY]: Calculates the next position based on the current position and the move.
+// if (isWithinBounds(nextX, nextY) && !visited.has(nextPos.toString())): Checks if the next position is within bounds and hasn't been visited before.
+// visited.add(nextPos.toString()); queue.push([nextPos, path.concat([nextPos])]);: If the next position is valid, it's added to the visited set and pushed onto the queue along with its updated path.
+// return -1;: If the loop completes without finding the end position, it means there's no path, and -1 is returned.
+// 4.console.log(shortestPath([3, 3], [4, 3]));: This line calls the shortestPath function with the starting position [3, 3] and the ending position [4, 3], and prints the result to the console.
