@@ -5,7 +5,13 @@ const Node = (data) => {
     right: null,
   };
 };
-
+// Node Structure Explanation:
+// Node is a function that takes data as a parameter and returns an object representing a node in the BST.
+// Each node has:
+// data: Stores the value associated with the node.
+// left: Points to the left child node.
+// right: Points to the right child node.
+// Initially, left and right are set to null because the node has no children when first created.
 const Tree = (array) => {
   let root = buildTree(array);
 
@@ -20,7 +26,26 @@ const Tree = (array) => {
 
     return rootNode;
   }
+// Tree Structure Explanation:
+// Tree is a function that initializes a binary search tree from an array (array).
+// It starts by calling buildTree(array) to construct the initial tree structure.
+// buildTree Function
+// buildTree Function Explanation:
+// buildTree recursively constructs a balanced BST from a sorted array (arr).
+// Parameters:
+// arr: The array from which to build the BST.
+// start: Start index of the current subarray (default is 0).
+// end: End index of the current subarray (default is arr.length - 1).
+// Steps:
+// Calculate middle as the index of the middle element in the current subarray.
+// Create a new Node using the middle element (arr[middle]).
+// Recursively build the left subtree (start to middle - 1) and assign it to rootNode.left.
+// Recursively build the right subtree (middle + 1 to end) and assign it to rootNode.right.
+// Return rootNode, which becomes the root of the subtree.
 
+// Methods in the Tree Structure
+// Methods Explanation:
+// Several methods are defined within the Tree function (insert, deleteItem, find, levelOrder, inOrder, preOrder, postOrder, height, depth, isBalanced, rebalance).
   function insert(value) {
     if (root === null) {
       root = Node(value);
@@ -270,3 +295,4 @@ const Tree = (array) => {
     rebalance,
   };
 };
+
